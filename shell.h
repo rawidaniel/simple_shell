@@ -25,4 +25,7 @@ char *_strcpy(char *dest, char *src);
 int _putchar(char c);
 void print_prompt(void);
 void _puts(char *str);
+/* convert_funcs.c */
+long int _atoi(char *str);
+char *convert(int num, int base);
 #endif
