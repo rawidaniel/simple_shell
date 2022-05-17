@@ -8,7 +8,7 @@
 #include <sys/wait.h>>
 #include <sys/stat.h>
 #include <limits.h>
-#include <signal.H>
+#include <signal.h>
 
 /* tokenize.c */
 int wordcount(char *str, char delim);
@@ -21,4 +21,8 @@ int _strncmp(char *s1, char *s2, unsigned int n);
 /* string_funcs_2.c */
 int _strlen(char *str);
 char *_strcpy(char *dest, char *src);
+/* print_funcs */
+int _putchar(char c);
+void print_prompt(void);
+void _puts(char *str);
 #endif
