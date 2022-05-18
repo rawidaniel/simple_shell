@@ -83,4 +83,11 @@ void print_error_cd(int *i, char *s, char **argv);
 char **get_env(char *name, char **env);
 char *path_finder(char **s, char **env);
 char *get_env_val(char *name, char **env);
+
+/* builtins.c */
+int is_builtin(char *line, char **argv, char *prog_name, int *i, env_t **head);
+long int exit_handler(char **tokens);
+int env_handler(char **av, env_t **head);
+int cd_handler(char **argv, env_t **head);
+void change_pwd(char *path, char **env, env_t **head);
 #endif
