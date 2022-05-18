@@ -78,9 +78,9 @@ File | Content
 
 ### Rawi Danile
 
-[Github] (https://github.com/rawidaniel)
+[Github](https://github.com/rawidaniel)
 
 ### Ikram Awol
 
-[Github] (https://github.com/ikramawol)
+[Github](https://github.com/ikramawol)
 
