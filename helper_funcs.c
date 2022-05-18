@@ -13,6 +13,7 @@ void sigint_handler(int sig)
 	 _putchar('\n');
 	 print_prompt();
 	 fflush(stdout);
+	 exit(EXIT_SUCCESS);
 }
 
 /**
