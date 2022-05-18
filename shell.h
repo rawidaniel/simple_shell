@@ -79,4 +79,8 @@ void print_error_exit(int *i, char *s, char **argv);
 void print_error_main(char **av);
 void print_error_cd(int *i, char *s, char **argv);
 
+/* path_finder.c */
+char **get_env(char *name, char **env);
+char *path_finder(char **s, char **env);
+char *get_env_val(char *name, char **env);
 #endif
