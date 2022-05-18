@@ -60,4 +60,9 @@ void free_list(env_t **head);
 size_t print_list(env_t *h);
 int arr_to_list(env_t **head, char **env);
 char **list_to_arr(env_t *head);
+
+/* helper_funcs.c */
+void sigint_handler(int sig);
+void free_everything(char **args);
+char **parse_line(char *line, int get);
 #endif
