@@ -1,16 +1,17 @@
 #include "shell.h"
 
 /**
- * _putchar - write character c to standard output
- * @c: the character to print
+ * _putchar - writes the character c to standard output
+ * @c: The character to print
  *
- * Return: on success 1
- * on error, -1 is returned,and errno is set appropriately
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
  */
 int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
+
 
 /**
  * print_prompt - prints a prompt for the shell
@@ -23,17 +24,14 @@ void print_prompt(void)
 }
 
 /**
- * _puts - print string to standard output
- * @str: pointer to string to print
+ * _puts - prints a string to standard output
+ * @str: pointer to the string to print
  */
 void _puts(char *str)
 {
-	int i = 0;
+	int i;
 
-	while (str[i] != '\0')
-	{
+	for (i = 0; str[i] != '\0'; i++)
 		_putchar(str[i]);
-		i++;
-	}
 	_putchar('\n');
 }

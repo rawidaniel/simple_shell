@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * _atoi - convert a string to an integer
- * @str: string to be converted
+ * _atoi - converts a string to an integer
+ * @s: string to be converted
  *
  * Description: if the first character is a '+',
  * Go to next character
@@ -18,30 +18,31 @@
  *
  * Return: the int converted from the string
  */
-long int _atoi(char *str)
+long int _atoi(char *s)
 {
 	int i, len, f, digit;
 	long int n;
 
-	i = 0, n = 0;
-	len = _strlen(str);
+	i = 0;
+	n = 0;
+	len = _strlen(s);
 	f = 0;
 	digit = 0;
 
-	if (str[i] == '+')
+	if (s[i] == '+')
 		i++;
 
 	while (i < len && f == 0)
 	{
-		if (str[i] == '-')
+		if (s[i] == '-')
 			return (-1);
 
-		if (str[i] >= '0' && str[i] <= '9')
+		if (s[i] >= '0' && s[i] <= '9')
 		{
-			digit = str[i] - '0';
+			digit = s[i] - '0';
 			n = n * 10 + digit;
 			f = 1;
-			if (str[i + 1] < '0' || str[i + 1] > '9')
+			if (s[i + 1] < '0' || s[i + 1] > '9')
 				break;
 			f = 0;
 		}
@@ -72,26 +73,16 @@ long int _atoi(char *str)
  */
 char *convert(int num, int base)
 {
-	static char *array = "0123456789ABCDEF";
+	static char *rep = "0123456789";
 	static char buffer[50];
-	char sign = 0;
-	char *ptr;
-	unsigned long n = num;
+	char *ptr = NULL;
 
-	if (num < 0)
-	{
-		n = -num;
-		sign = '-';
-	}
 	ptr = &buffer[49];
 	*ptr = '\0';
-
 	do {
-		*--ptr = array[n % base];
-		n /= base;
-	} while (n != 0);
+		*--ptr = rep[num % base];
+		num /= base;
+	} while (num != 0);
 
-	if (sign)
-		*--ptr = sign;
 	return (ptr);
 }

@@ -7,18 +7,17 @@
  * Description: ignore sig, print newline, print the prompt
  * Call to fflush discards the Ctrl-C
  */
-
 void sigint_handler(int sig)
 {
 	(void)sig;
-	_putchar('\n');
-	print_prompt();
-	fflush(stdout);
+	 _putchar('\n');
+	 print_prompt();
+	 fflush(stdout);
 }
 
 /**
- * free_everything - frees array of string
- * @args: array of string to free
+ * free_everything - frees arrays of strings
+ * @args: array of strings to free
  */
 void free_everything(char **args)
 {
@@ -26,18 +25,20 @@ void free_everything(char **args)
 
 	if (!args)
 		return;
+
 	for (i = 0; args[i]; i++)
 		free(args[i]);
+
 	free(args);
 }
 
 /**
- * parse_line - handle the newline character if found, and parse the input line
- * @line: line read from stdin
- * @get: size of line returned from getline
- *
- * Return: parsed line
- */
+* parse_line - handle newline character if found, and parses the input line
+* @line: line read from stdin
+* @get: size of line returned from getline
+*
+* Return: parsed line
+*/
 char **parse_line(char *line, int get)
 {
 	char **input = NULL;

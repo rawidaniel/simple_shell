@@ -1,91 +1,33 @@
 #include "shell.h"
 
 /**
- * list_len - return the number of elements in a linked list
- * @h: pointer to the env_t linked list
- *
- * Return: the number of elements in h
- */
-size_t list_len(const env_t *h)
-{
-	size_t num = 0;
-
-	while (h)
-	{
-		num++;
-		h = h->next;
-	}
-	return (num);
-}
-
-/**
- * free_list - free all the node of the linked list
- * @head: list_s list to be freed
- */
-void free_list(env_t **head)
-{
-	env_t *temp = NULL;
-
-	if (*head == NULL)
-		return;
-	while (*head)
-	{
-		temp = (*head)->next;
-		free((*head)->str);
-		free(*head);
-		*head = temp;
-	}
-
-	*head = NULL;
-}
-
-/**
- * print_list - print all the node in the linked list
- * @h: pointer to list_s list to print
- *
- * Return: the number of node printed
- */
-size_t print_list(env_t *h)
-{
-	size_t count = 0;
-
-	while (h)
-	{
-		if (!h->str)
-			_puts("(nil)");
-		else
-			_puts(h->str);
-		h = h->next;
-		count++;
-	}
-	return (count);
-}
-
-/**
- * arr_to_list - transform the environ variable in to linked list
+ * arr_to_list - transforms the environ variable into a linked list
  * @head: double pointer to the env_t list to fill
- * @env: a null terminating array of string containing the
- * environment variable
+ * @env: array of strings containing the environment variables
  *
- * Return: number of node in the list
+ * Description: Free the list if it exists
+ * Loop through the array and add a node for each string
+ *
+ * Return: Number of nodes in the list
  */
 int arr_to_list(env_t **head, char **env)
 {
-	int count = 0;
+	int i = 0;
 
 	if (head)
 		free_list(head);
-	while (env[count])
+
+	while (env[i])
 	{
-		add_node_end(head, env[count]);
-		count++;
+		add_node_end(head, env[i]);
+		i++;
 	}
-	return (count);
+	return (i);
 }
 
 /**
- * list_to_array - transform the linked list in to array of string
- * @head: pointer to list_s list
+ * list_to_arr - transforms a linked list in an array of strings
+ * @head: pointer to the env_t list
  *
  * Description: If the list doesn't exist, return NULL
  * Allocate memory for the array, check if it failed
@@ -94,13 +36,12 @@ int arr_to_list(env_t **head, char **env)
  * Set last element of the array to NULL
  * Return the array
  *
- * Return: address of the array on success, or NULL on failure
+ * Return: address of the array, or NULL if it failed
  */
-char **list_to_array(env_t *head)
+char **list_to_arr(env_t *head)
 {
-	char **arr =  NULL;
-	char *s = NULL;
 	env_t *temp = head;
+	char **arr = NULL, *s = NULL;
 	size_t size = 0;
 	int i;
 
@@ -108,6 +49,7 @@ char **list_to_array(env_t *head)
 
 	if (!head || !size)
 		return (NULL);
+
 	arr = malloc(sizeof(char *) * (size + 1));
 	if (!arr)
 		return (NULL);
@@ -126,4 +68,67 @@ char **list_to_array(env_t *head)
 	arr[i] = NULL;
 
 	return (arr);
+}
+
+/**
+ * print_list - prints all the nodes of a linked list
+ * @h: pointer to the list_t list to print
+ *
+ * Return: the number of nodes printed
+ */
+size_t print_list(env_t *h)
+{
+	size_t s = 0;
+
+	while (h)
+	{
+		if (!h->str)
+			_puts("(nil)");
+		else
+			_puts(h->str);
+		h = h->next;
+		s++;
+	}
+
+	return (s);
+}
+
+/**
+ * free_list - frees all the nodes of a linked list
+ * @head: list_t list to be freed
+ */
+void free_list(env_t **head)
+{
+	env_t *temp = NULL;
+
+	if (head == NULL)
+		return;
+
+	while (*head)
+	{
+		temp = (*head)->next;
+		free((*head)->str);
+		free(*head);
+		*head = temp;
+	}
+
+	*head = NULL;
+}
+
+/**
+ * list_len - returns the number of elements in a linked list
+ * @h: pointer to the env_t list
+ *
+ * Return: number of elements in h
+ */
+size_t list_len(const env_t *h)
+{
+	size_t n = 0;
+
+	while (h)
+	{
+		n++;
+		h = h->next;
+	}
+	return (n);
 }

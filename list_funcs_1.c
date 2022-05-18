@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * add_node_end - add a new node at the end of the linked list
- * @head: double pointer to the first node of linked list
- * @str: string to put in new node;
+ * add_node_end - adds a new node at the end of a linked list
+ * @head: double pointer to the env_t list
+ * @str: string to put in the new node
  *
  * Description: allocate memory for a node, and check if it failed
  * Copy str into the node, set next node to NULL
@@ -11,36 +11,38 @@
  * Traverse the list
  * Set the next element in the list to new, return it
  *
- * Return: the address of the new node on success, NULL on failure
+ * Return: address of the new element, or NULL if it failed
  */
 env_t *add_node_end(env_t **head, char *str)
 {
-	env_t *newnode = NULL;
+	env_t *new = NULL;
 	env_t *temp = *head;
 
-	newnode = malloc(sizeof(env_t));
-	if (!newnode)
+	new = malloc(sizeof(env_t));
+	if (!new)
 		return (NULL);
-	newnode->str = malloc(sizeof(char) * (_strlen(str) + 1));
-	newnode->str = _strdup(str);
-	newnode->next = NULL;
+
+	new->str = _strdup(str);
+	new->next = NULL;
 
 	if (*head == NULL)
 	{
-		*head = newnode;
-		return (newnode);
+		*head = new;
+		return (new);
 	}
 
-	while (temp->next != NULL)
+	while (temp->next)
 		temp = temp->next;
-	temp->next = newnode;
-	return (newnode);
+
+	temp->next = new;
+
+	return (new);
 }
 
 /**
- * delete_node_at_index - delete a node in the linked list at a given index
- * @head: pointer to the first element in linked list
- * @index: index of a node to be deleted
+ * delete_node_at_index - deletes a node in a linked list at a certain index
+ * @head: pointer to the first element in the list
+ * @index: index of the node to delete
  *
  * Description: If the list is empty, return NULL
  * If we want to delete the first node,
@@ -48,16 +50,17 @@ env_t *add_node_end(env_t **head, char *str)
  * Traverse the list, at the end set the current node to
  * point to two nodes after it, free the next node and free its string
  *
- * Return: 1 on success, -1 0n failure
+ * Return: 1 (Success), or -1 (Fail)
  */
 int delete_node_at_index(env_t **head, unsigned int index)
 {
 	env_t *temp = *head;
-	env_t *del = NULL;
+	env_t *current = NULL;
 	unsigned int i = 0;
 
 	if (*head == NULL)
 		return (-1);
+
 	if (index == 0)
 	{
 		*head = (*head)->next;
@@ -65,17 +68,19 @@ int delete_node_at_index(env_t **head, unsigned int index)
 		free(temp);
 		return (1);
 	}
-	while (i < (index - 1))
+
+	while (i < index - 1)
 	{
 		if (!temp || !(temp->next))
 			return (-1);
 		temp = temp->next;
 		i++;
 	}
-	del = temp->next;
-	temp->next = del->next;
-	free(del->str);
-	free(del);
+
+	current = temp->next;
+	temp->next = current->next;
+	free(current->str);
+	free(current);
 
 	return (1);
 }
@@ -128,19 +133,20 @@ int add_node_at_index(env_t **head, char *str, int idx)
 }
 
 /**
- * find_index_list - find the index of a given element in a list
- * @head: pointer to the first element in a list
- * @name: string of a node to find
+ * find_index_list - finds the index of a given element in a list
+ * @head: pointer to the env_t list
+ * @name: string of the node to find
  *
- * Description: Traverse through the loop
- * for each node, compare its string with name
- * if it match, return the index of the node
+ * Description: Traverse the list,
+ * For each node, compare its string with name
+ * If it matches, return the index of teh node
  *
- * Return: the index of the node on success, 0 if the node is not found
+ * Return: index of the node, or 0 if the node is not found
  */
 int find_index_list(env_t *head, char *name)
 {
-	int index = 0, c = 0;
+	int index = 0;
+	int c = 0;
 
 	while (head)
 	{
@@ -150,5 +156,6 @@ int find_index_list(env_t *head, char *name)
 		index++;
 		head = head->next;
 	}
+
 	return (0);
 }

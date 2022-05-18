@@ -7,7 +7,7 @@
  * @argv: name and value of the variable to set
  * @args: number of arguments
  *
- * Description: If the list is empty, return 0
+ * Description: If the list is empty, return NULL
  * If no arguments is passed to setenv,
  * print the list
  * If too many arguments are passed, return -1
@@ -83,36 +83,6 @@ int _unsetenv(env_t **head, char **argv)
 }
 
 /**
- * print_error_setenv - prints a custom error message for setenv
- * @i: index of the command in history
- * @s: name of the program
- * @argv: array of arguments from the command line
- *
- * Description: Concatenate strings to format the error message
- * Free previous concatenation at every new string
- * When the string is completed, write message to standard error
- */
-void print_error_setenv(int *i, char *s, char **argv)
-{
-	char *buf1 = NULL, *buf2 = NULL, *buf3 = NULL, *buf4 = NULL, *buf5 = NULL;
-	char *number = NULL;
-
-	number = convert(*i, 10);
-
-	buf1 = str_concat(s, ": ");
-	buf2 = str_concat(buf1, number);
-	free(buf1);
-	buf3 = str_concat(buf2, ": ");
-	free(buf2);
-	buf4 = str_concat(buf3, argv[0]);
-	free(buf3);
-	buf5 = str_concat(buf4, ": Bad variable name\n");
-	free(buf4);
-	write(2, buf5, _strlen(buf5));
-	free(buf5);
-}
-
-/**
  * setenv_handler - handles the setenv and unsetenv builtins
  * @argv: array of arguments from the command line
  * @head: pointer to the env_t linked list
@@ -142,4 +112,34 @@ void setenv_handler(char **argv, env_t **head, int *i, char *prog_name)
 		if (m == -1)
 			write(2, unset_err, _strlen(unset_err));
 	}
+}
+
+/**
+ * print_error_setenv - prints a custom error message for setenv
+ * @i: index of the command in history
+ * @s: name of the program
+ * @argv: array of arguments from the command line
+ *
+ * Description: Concatenate strings to format the error message
+ * Free previous concatenation at every new string
+ * When the string is completed, write message to standard error
+ */
+void print_error_setenv(int *i, char *s, char **argv)
+{
+	char *buf1 = NULL, *buf2 = NULL, *buf3 = NULL, *buf4 = NULL, *buf5 = NULL;
+	char *number = NULL;
+
+	number = convert(*i, 10);
+
+	buf1 = str_concat(s, ": ");
+	buf2 = str_concat(buf1, number);
+	free(buf1);
+	buf3 = str_concat(buf2, ": ");
+	free(buf2);
+	buf4 = str_concat(buf3, argv[0]);
+	free(buf3);
+	buf5 = str_concat(buf4, ": Bad variable name\n");
+	free(buf4);
+	write(2, buf5, _strlen(buf5));
+	free(buf5);
 }
