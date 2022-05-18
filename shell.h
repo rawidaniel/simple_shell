@@ -72,4 +72,11 @@ int _unsetenv(env_t **head, char **argv);
 void print_error_setenv(int *i, char *s, char **argv);
 void setenv_handler(char **argv, env_t **head, int *i, char *prog_name);
 
+/* print_errors.c */
+void print_error(int *i, char *s, char **argv);
+void print_error_env(char **argv);
+void print_error_exit(int *i, char *s, char **argv);
+void print_error_main(char **av);
+void print_error_cd(int *i, char *s, char **argv);
+
 #endif
