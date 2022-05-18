@@ -65,4 +65,11 @@ char **list_to_arr(env_t *head);
 void sigint_handler(int sig);
 void free_everything(char **args);
 char **parse_line(char *line, int get);
+
+/* set_env.c */
+int _setenv(env_t **head, char **argv, int args);
+int _unsetenv(env_t **head, char **argv);
+void print_error_setenv(int *i, char *s, char **argv);
+void setenv_handler(char **argv, env_t **head, int *i, char *prog_name);
+
 #endif
