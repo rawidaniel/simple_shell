@@ -1,16 +1,15 @@
 #include "shell.h"
 
 /**
- * wordcount - count tokens in the string
- * @str: string to be parsed
- * @delim: separator between tokens
+ * wordcount - counts tokens in a string for _strtok
+ * @str: string to tokenize
+ * @delim: delimeter between tokens
  *
- * Description: loop through the string
- * if the current character is not delimiter and the character
- * next to the current one is delimter or null terminator
- * it increment the count
+ * Description: loop through string
+ * If the current character is a delim, turn flag off
+ * Else, turn flag on and increment the count
  *
- * Return: the number of tokens
+ * Return: number of tokens
  */
 int wordcount(char *str, char delim)
 {
@@ -31,36 +30,36 @@ int wordcount(char *str, char delim)
 }
 
 /**
- * _strtok - convert a string int an array of tokens
- * @str: string to be parsed
- * @delim: separator between tokens
- *
- * Description: if the string is NULL, return NULL
- * set the total to the nuber of token in string
- * if total is 0,return NULL
- * Allocate memory for the array of string, check if it failed
- * loop through the string and as loop as the increment is smaller than total
- * store the current position of str in cpy
- * Go pass the characters until the delim
- * Allocate memory for the previous token, check if it failed
- * Loop through cpy (copy of the token)
- * Store each character into the array of strings words
- * Terminate the string by a null byte
- * Continue
- * Set the last string of the array to NULL, return array
- *
- * Return: pointer to the array of string on success,or NULL on failure
- */
+* _strtok - converts a string into an array of tokens
+* @str: string to tokenize
+* @delim: delimeter between tokens
+*
+* Description: if the string is NULL, return NULL
+* Set total to number of tokens in str
+* If total is 0, return NULL
+* Allocate memory for the array of strings, check if it failed
+* Loop through string and as loop as the increment is smaller than total
+* Store current position of str in cpy
+* Go pass the characters until the delim
+* Allocate memory for the previous token, check if it failed
+* Loop through cpy (copy of the token)
+* Store each character into the array of strings words
+* Terminate the string by a null byte
+* Continue
+* Set the last string of the array to NULL, return array
+*
+* Return: pointer to the array of strings on success, or NULL on failure
+*/
 char **_strtok(char *str, char delim)
 {
-	char **words, *cpy = NULL;
+	char *cpy = NULL, **words = NULL;
 	int i = 0, j = 0, len = 0, total = 0;
 
 	if (str == 0 || *str == 0)
 		return (NULL);
 	total = wordcount(str, delim);
 	if (total == 0)
-		return (0);
+		return (NULL);
 	words = malloc(sizeof(char *) * (total + 1));
 	if (words == NULL)
 		return (NULL);
@@ -77,13 +76,13 @@ char **_strtok(char *str, char delim)
 				str++;
 			}
 			words[i] = malloc(sizeof(char) * (len + 1));
-			if (words[i] == NULL)
+			if (!words[i])
 				return (NULL);
 			while (*cpy != delim && *cpy && *cpy != '\n')
 			{
 				words[i][j] = *cpy;
-				j++;
 				cpy++;
+				j++;
 			}
 			words[i][j] = '\0';
 			i++;
