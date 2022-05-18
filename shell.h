@@ -2,10 +2,10 @@
 #define SIMPLESHELL_H
 
 #include <stdio.h>
-#include <unstdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/wait.h>>
+#include <sys/wait.h>
 #include <sys/stat.h>
 #include <limits.h>
 #include <signal.h>
@@ -27,7 +27,7 @@ typedef struct list_s
 
 /* tokenize.c */
 int wordcount(char *str, char delim);
-char **_strtok(char *str, chardelim);
+char **_strtok(char *str, char delim);
 
 /* string_funs_1.c */
 char *_strdup(char *str);
@@ -51,8 +51,8 @@ char *convert(int num, int base);
 /* list_funcs_1.c */
 env_t *add_node_end(env_t **head, char *str);
 int delete_node_at_index(env_t **head, unsigned int index);
-int add_node_at_index(env_t **head, int idx);
-int find_node_at_index(env_t *head, char *name);
+int add_node_at_index(env_t **head, char *str, int idx);
+int find_index_list(env_t *head, char *name);
 
 /* list_funcs_2.c */
 size_t list_len(const env_t *h);
@@ -90,4 +90,7 @@ long int exit_handler(char **tokens);
 int env_handler(char **av, env_t **head);
 int cd_handler(char **argv, env_t **head);
 void change_pwd(char *path, char **env, env_t **head);
+
+/* main.c */
+int exec(char **input, char *s, int *i, env_t **head);
 #endif

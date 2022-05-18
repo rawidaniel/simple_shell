@@ -33,15 +33,15 @@ long int _atoi(char *str)
 
 	while (i < len && f == 0)
 	{
-		if (s[i] == '-')
+		if (str[i] == '-')
 			return (-1);
 
-		if (s[i] >= '0' && s[i] <= '9')
+		if (str[i] >= '0' && str[i] <= '9')
 		{
-			digit = s[i] - '0';
+			digit = str[i] - '0';
 			n = n * 10 + digit;
 			f = 1;
-			if (s[i + 1] < '0' || s[i + 1] > '9')
+			if (str[i + 1] < '0' || str[i + 1] > '9')
 				break;
 			f = 0;
 		}

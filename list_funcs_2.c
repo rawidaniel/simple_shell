@@ -15,7 +15,7 @@ size_t list_len(const env_t *h)
 		num++;
 		h = h->next;
 	}
-	return (h);
+	return (num);
 }
 
 /**
@@ -30,8 +30,8 @@ void free_list(env_t **head)
 		return;
 	while (*head)
 	{
-		tem = *head->next;
-		free(*head->str);
+		temp = (*head)->next;
+		free((*head)->str);
 		free(*head);
 		*head = temp;
 	}

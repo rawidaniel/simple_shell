@@ -60,7 +60,7 @@ int delete_node_at_index(env_t **head, unsigned int index)
 		return (-1);
 	if (index == 0)
 	{
-		*head = *head->next;
+		*head = (*head)->next;
 		free(temp->str);
 		free(temp);
 		return (1);
@@ -69,7 +69,7 @@ int delete_node_at_index(env_t **head, unsigned int index)
 	{
 		if (!temp || !(temp->next))
 			return (-1);
-		temp->temp->next;
+		temp = temp->next;
 		i++;
 	}
 	del = temp->next;

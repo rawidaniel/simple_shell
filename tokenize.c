@@ -14,15 +14,20 @@
  */
 int wordcount(char *str, char delim)
 {
-	int count = 0;
-	int i;
+	int num = 0, i;
+	int flag = 0;
 
 	for (i = 0; str[i]; i++)
 	{
-		if (str[i] != delim && (str[i + 1] == delim || str[i + 1] == '\0')
-				count++;
+		if (str[i] == delim)
+			flag = 0;
+		else if (flag == 0)
+		{
+			flag = 1;
+			num++;
+		}
 	}
-	return (count);
+	return (num);
 }
 
 /**
@@ -51,7 +56,7 @@ char **_strtok(char *str, char delim)
 	char **words, *cpy = NULL;
 	int i = 0, j = 0, len = 0, total = 0;
 
-	if (str == NULL || *str == NULL)
+	if (str == 0 || *str == 0)
 		return (NULL);
 	total = wordcount(str, delim);
 	if (total == 0)
